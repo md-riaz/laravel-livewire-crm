@@ -19,9 +19,7 @@ Route::middleware(['auth'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/leads', function () {
-        return view('leads.index');
-    })->name('leads.index');
+    Route::get('/leads', \App\Livewire\Leads\Kanban::class)->name('leads.index');
 
     Route::get('/calls', function () {
         return view('calls.index');
