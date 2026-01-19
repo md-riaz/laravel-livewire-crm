@@ -21,9 +21,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/leads', \App\Livewire\Leads\Kanban::class)->name('leads.index');
 
-    Route::get('/calls', function () {
-        return view('calls.index');
-    })->name('calls.index');
+    Route::get('/calls', \App\Livewire\Calls\CallsLog::class)->name('calls.index');
 
     Route::get('/agent/console', function () {
         return view('agent.console');
