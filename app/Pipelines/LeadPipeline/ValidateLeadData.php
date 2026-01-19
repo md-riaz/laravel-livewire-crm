@@ -30,7 +30,7 @@ class ValidateLeadData
             'phone' => 'nullable|string|max:50',
             'company_name' => 'nullable|string|max:255',
             'source' => 'nullable|string|max:100',
-            'score' => 'nullable|in:' . implode(',', config('crm.leads.valid_scores', ['hot', 'warm', 'cold'])),
+            'score' => 'nullable|in:' . implode(',', config('crm.leads.valid_scores', [])),
             'estimated_value' => 'nullable|numeric|min:0',
         ];
 

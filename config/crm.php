@@ -106,6 +106,16 @@ return [
             'note_added',
             'followup_scheduled',
         ],
+
+        // Lead fields to track changes for
+        'tracked_fields' => [
+            'name',
+            'email',
+            'phone',
+            'company_name',
+            'score',
+            'estimated_value',
+        ],
     ],
 
     /*

@@ -27,10 +27,14 @@ class NotifyAssignedUser implements ShouldQueue
         $user = User::find($event->newUserId);
         
         if ($user) {
-            // Notification implementation would go here
-            // Example: $user->notify(new LeadAssignedNotification($event->lead));
-            // For production, create a notification class:
-            // php artisan make:notification LeadAssignedNotification
+            // TODO: Implement notification when notification system is ready
+            // Example implementation:
+            // $user->notify(new LeadAssignedNotification($event->lead));
+            // 
+            // To add notifications:
+            // 1. Run: php artisan make:notification LeadAssignedNotification
+            // 2. Implement the notification class
+            // 3. Uncomment the line above
         }
     }
 }

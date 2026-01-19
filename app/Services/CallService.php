@@ -95,7 +95,7 @@ readonly class CallService implements CallServiceInterface
             // Validate mandatory wrap-up if configured
             if (config('crm.calls.mandatory_wrapup', true)) {
                 $disposition = \App\Models\CallDisposition::find($dispositionId);
-                if (empty($notes) && $disposition?->requires_note) {
+                if ($disposition && $disposition->requires_note && empty($notes)) {
                     throw new \InvalidArgumentException('Notes are required for this disposition');
                 }
             }

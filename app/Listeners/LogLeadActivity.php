@@ -21,11 +21,13 @@ class LogLeadActivity implements ShouldQueue
 
     /**
      * Handle lead created event
+     * 
+     * TODO: Add additional logging beyond what the service does
+     * This can include notifications, integrations, etc.
      */
     public function handleLeadCreated(LeadCreated $event): void
     {
-        // Additional logging beyond what the service does
-        // This can include notifications, integrations, etc.
+        // Placeholder for future enhancements
     }
 
     /**

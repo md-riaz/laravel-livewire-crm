@@ -96,9 +96,13 @@ class EnrichLeadData
         // Remove all non-numeric characters except + at the start
         $normalized = preg_replace('/[^\d+]/', '', $phone);
         
-        // Ensure + is only at the start
+        // Ensure + is only at the start (if present)
         if (str_contains($normalized, '+')) {
-            $normalized = '+' . str_replace('+', '', $normalized);
+            $hasPlus = str_starts_with($normalized, '+');
+            $normalized = str_replace('+', '', $normalized);
+            if ($hasPlus) {
+                $normalized = '+' . $normalized;
+            }
         }
 
         return $normalized;

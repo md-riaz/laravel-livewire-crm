@@ -77,13 +77,13 @@ class AppServiceProvider extends ServiceProvider
     protected function registerEventListeners(): void
     {
         // Lead event listeners
-        Event::listen(LeadCreated::class, [LogLeadActivity::class, 'handleLeadCreated']);
-        Event::listen(LeadStatusChanged::class, [LogLeadActivity::class, 'handleLeadStatusChanged']);
+        Event::listen(LeadCreated::class, LogLeadActivity::class . '@handleLeadCreated');
+        Event::listen(LeadStatusChanged::class, LogLeadActivity::class . '@handleLeadStatusChanged');
         Event::listen(LeadAssigned::class, NotifyAssignedUser::class);
 
         // Call event listeners
-        Event::listen(CallStarted::class, [LogCallActivity::class, 'handleCallStarted']);
-        Event::listen(CallEnded::class, [LogCallActivity::class, 'handleCallEnded']);
+        Event::listen(CallStarted::class, LogCallActivity::class . '@handleCallStarted');
+        Event::listen(CallEnded::class, LogCallActivity::class . '@handleCallEnded');
         Event::listen(CallWrappedUp::class, UpdateLeadTimestamps::class);
     }
 }

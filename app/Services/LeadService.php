@@ -163,7 +163,9 @@ readonly class LeadService implements LeadServiceInterface
      */
     private function getSignificantChanges(Lead $original, Lead $updated): array
     {
-        $trackedFields = ['name', 'email', 'phone', 'company_name', 'score', 'estimated_value'];
+        $trackedFields = config('crm.activities.tracked_fields', [
+            'name', 'email', 'phone', 'company_name', 'score', 'estimated_value'
+        ]);
         $changes = [];
 
         foreach ($trackedFields as $field) {
