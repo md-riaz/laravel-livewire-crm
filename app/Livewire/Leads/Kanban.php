@@ -61,6 +61,18 @@ class Kanban extends Component
         $this->showCreateModal = false;
     }
 
+    #[On('leadUpdated')]
+    public function handleLeadUpdated()
+    {
+        // Refresh the view
+    }
+
+    #[On('leadDeleted')]
+    public function handleLeadDeleted()
+    {
+        // Refresh the view
+    }
+
     public function openCreateModal()
     {
         $this->showCreateModal = true;

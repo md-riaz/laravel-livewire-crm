@@ -34,7 +34,8 @@
                              draggable="true"
                              data-lead-id="{{ $lead->id }}"
                              data-status-id="{{ $status->id }}"
-                             @dragstart="handleDragStart($event, {{ $lead->id }}, {{ $status->id }})">
+                             @dragstart="handleDragStart($event, {{ $lead->id }}, {{ $status->id }})"
+                             @click.stop="$dispatch('openLeadDrawer', { leadId: {{ $lead->id }} })">
                             
                             <div class="flex items-start justify-between mb-2">
                                 <h4 class="font-medium text-gray-900">{{ $lead->name }}</h4>
@@ -79,6 +80,9 @@
     @if($showCreateModal)
         @livewire('leads.create-lead-modal')
     @endif
+
+    <!-- Lead Drawer -->
+    @livewire('leads.lead-drawer')
 
     <script>
         function kanbanBoard() {
