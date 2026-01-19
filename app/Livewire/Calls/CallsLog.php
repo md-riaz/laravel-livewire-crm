@@ -161,6 +161,7 @@ class CallsLog extends Component
         $calls = $query->paginate(50);
 
         // Get filter options
+        // Note: User model doesn't use BelongsToTenant trait, so explicit tenant scoping is required
         $users = $this->isSupervisor()
             ? User::where('tenant_id', auth()->user()->tenant_id)
                 ->where('is_active', true)
@@ -168,6 +169,7 @@ class CallsLog extends Component
                 ->get()
             : collect();
 
+        // CallDisposition uses BelongsToTenant trait, so tenant scoping is automatic
         $dispositions = CallDisposition::ordered()->get();
 
         return view('livewire.calls.calls-log', [
