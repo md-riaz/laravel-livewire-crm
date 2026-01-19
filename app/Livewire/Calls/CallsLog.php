@@ -162,7 +162,10 @@ class CallsLog extends Component
 
         // Get filter options
         $users = $this->isSupervisor()
-            ? User::where('is_active', true)->orderBy('name')->get()
+            ? User::where('tenant_id', auth()->user()->tenant_id)
+                ->where('is_active', true)
+                ->orderBy('name')
+                ->get()
             : collect();
 
         $dispositions = CallDisposition::ordered()->get();

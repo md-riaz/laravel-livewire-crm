@@ -171,9 +171,9 @@
                             </td>
                             @if($isSupervisor)
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                @if($call->recording_url)
-                                    <button onclick="window.open('{{ $call->recording_url }}', '_blank')"
-                                            class="inline-flex items-center text-blue-600 hover:text-blue-800">
+                                @if($call->recording_url && filter_var($call->recording_url, FILTER_VALIDATE_URL))
+                                    <button onclick="window.open({{ json_encode($call->recording_url) }}, '_blank')"
+                                            class="inline-flex items-center text-blue-600 hover:text-blue-800 focus:outline-none">
                                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/>
                                         </svg>
