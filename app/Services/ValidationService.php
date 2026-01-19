@@ -171,13 +171,11 @@ class ValidationService
      */
     public function validateTenantRule(string $rule, mixed $value, int $tenantId): bool
     {
-        // This can be extended to load tenant-specific validation rules from database
-        // For now, we'll implement basic rules
-        
+        // Define rule constants for type safety
         return match($rule) {
             'max_leads_per_user' => $this->validateMaxLeadsPerUser($value, $tenantId),
             'required_lead_fields' => $this->validateRequiredLeadFields($value, $tenantId),
-            default => true,
+            default => throw new \InvalidArgumentException("Unknown validation rule: {$rule}"),
         };
     }
 

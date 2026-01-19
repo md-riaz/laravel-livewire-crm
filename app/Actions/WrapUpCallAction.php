@@ -30,13 +30,24 @@ readonly class WrapUpCallAction
         return DB::transaction(function () use ($dto) {
             $call = Call::findOrFail($dto->call_id);
 
-            // Update call with wrap-up data
-            $updateData = array_filter([
-                'disposition_id' => $dto->disposition_id,
-                'wrapup_notes' => $dto->wrapup_notes,
-                'related_id' => $dto->related_id,
-                'related_type' => $dto->related_type,
-            ], fn($value) => $value !== null);
+            // Update call with wrap-up data - explicit null checks
+            $updateData = [];
+            
+            if ($dto->disposition_id !== null) {
+                $updateData['disposition_id'] = $dto->disposition_id;
+            }
+            
+            if ($dto->wrapup_notes !== null) {
+                $updateData['wrapup_notes'] = $dto->wrapup_notes;
+            }
+            
+            if ($dto->related_id !== null) {
+                $updateData['related_id'] = $dto->related_id;
+            }
+            
+            if ($dto->related_type !== null) {
+                $updateData['related_type'] = $dto->related_type;
+            }
 
             $call->update($updateData);
 
