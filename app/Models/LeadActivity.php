@@ -16,10 +16,14 @@ class LeadActivity extends Model
         'lead_id',
         'user_id',
         'type',
+        'activity_type',
+        'description',
+        'metadata',
         'payload_json',
     ];
 
     protected $casts = [
+        'metadata' => 'array',
         'payload_json' => 'array',
         'created_at' => 'datetime',
     ];

@@ -15,13 +15,17 @@ class AuditLog extends Model
         'tenant_id',
         'user_id',
         'action',
+        'auditable_type',
+        'auditable_id',
         'entity_type',
         'entity_id',
+        'metadata',
         'ip_address',
         'user_agent',
     ];
 
     protected $casts = [
+        'metadata' => 'array',
         'created_at' => 'datetime',
     ];
 
