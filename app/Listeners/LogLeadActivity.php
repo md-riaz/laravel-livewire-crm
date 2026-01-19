@@ -48,15 +48,4 @@ class LogLeadActivity implements ShouldQueue
             );
         }
     }
-
-    /**
-     * Register the listeners for the subscriber
-     */
-    public function subscribe(array $events): array
-    {
-        return [
-            LeadCreated::class => 'handleLeadCreated',
-            LeadStatusChanged::class => 'handleLeadStatusChanged',
-        ];
-    }
 }

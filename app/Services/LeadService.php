@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Contracts\LeadServiceInterface;
 use App\Contracts\LeadRepositoryInterface;
 use App\Contracts\ActivityLoggerInterface;
+use App\Events\LeadAssigned;
 use App\Events\LeadCreated;
 use App\Events\LeadStatusChanged;
 use App\Models\Lead;
@@ -110,10 +111,8 @@ readonly class LeadService implements LeadServiceInterface
                 ]
             );
 
-            // Notify assigned user if configured
-            if (class_exists(\App\Pipelines\LeadPipeline\NotifyAssignedUser::class)) {
-                app(\App\Pipelines\LeadPipeline\NotifyAssignedUser::class)->handle($updated, fn() => null);
-            }
+            // Dispatch event for notifications
+            event(new LeadAssigned($updated, $previousUserId, $userId));
 
             return $updated;
         });

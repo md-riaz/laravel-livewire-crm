@@ -94,7 +94,8 @@ readonly class CallService implements CallServiceInterface
         return DB::transaction(function () use ($call, $dispositionId, $notes) {
             // Validate mandatory wrap-up if configured
             if (config('crm.calls.mandatory_wrapup', true)) {
-                if (empty($notes) && $call->disposition?->requires_note) {
+                $disposition = \App\Models\CallDisposition::find($dispositionId);
+                if (empty($notes) && $disposition?->requires_note) {
                     throw new \InvalidArgumentException('Notes are required for this disposition');
                 }
             }
@@ -110,16 +111,8 @@ readonly class CallService implements CallServiceInterface
                 'has_notes' => !empty($notes),
             ]);
 
-            // Dispatch event
+            // Dispatch event (UpdateLeadTimestamps listener handles lead timestamp update)
             event(new CallWrappedUp($updated));
-
-            // Update related lead's last_contacted_at if linked
-            if ($updated->related_type === Lead::class && $updated->related_id) {
-                $lead = Lead::find($updated->related_id);
-                if ($lead) {
-                    $lead->update(['last_contacted_at' => $updated->ended_at ?? now()]);
-                }
-            }
 
             return $updated;
         });

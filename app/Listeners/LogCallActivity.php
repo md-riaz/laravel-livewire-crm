@@ -65,15 +65,4 @@ class LogCallActivity implements ShouldQueue
             }
         }
     }
-
-    /**
-     * Register the listeners for the subscriber
-     */
-    public function subscribe(array $events): array
-    {
-        return [
-            CallStarted::class => 'handleCallStarted',
-            CallEnded::class => 'handleCallEnded',
-        ];
-    }
 }

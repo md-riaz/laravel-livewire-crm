@@ -10,10 +10,12 @@ use App\Contracts\LeadServiceInterface;
 use App\Events\CallEnded;
 use App\Events\CallStarted;
 use App\Events\CallWrappedUp;
+use App\Events\LeadAssigned;
 use App\Events\LeadCreated;
 use App\Events\LeadStatusChanged;
 use App\Listeners\LogCallActivity;
 use App\Listeners\LogLeadActivity;
+use App\Listeners\NotifyAssignedUser;
 use App\Listeners\UpdateLeadTimestamps;
 use App\Repositories\CallRepository;
 use App\Repositories\LeadRepository;
@@ -77,6 +79,7 @@ class AppServiceProvider extends ServiceProvider
         // Lead event listeners
         Event::listen(LeadCreated::class, [LogLeadActivity::class, 'handleLeadCreated']);
         Event::listen(LeadStatusChanged::class, [LogLeadActivity::class, 'handleLeadStatusChanged']);
+        Event::listen(LeadAssigned::class, NotifyAssignedUser::class);
 
         // Call event listeners
         Event::listen(CallStarted::class, [LogCallActivity::class, 'handleCallStarted']);
