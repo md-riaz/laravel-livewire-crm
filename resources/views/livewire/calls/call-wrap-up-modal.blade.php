@@ -50,7 +50,7 @@
                         <span class="text-gray-500">Number:</span>
                         <span class="ml-2 font-medium">{{ $call->direction === 'inbound' ? $call->from_number : $call->to_number }}</span>
                     </div>
-                    @if($call->related && $call->related instanceof \App\Models\Lead)
+                    @if($this->isLeadCall)
                     <div>
                         <span class="text-gray-500">Lead:</span>
                         <span class="ml-2 font-medium text-blue-600">{{ $call->related->name }}</span>
@@ -111,7 +111,7 @@
                 </div>
 
                 <!-- Schedule Follow-up Section -->
-                @if($call && $call->related && $call->related instanceof \App\Models\Lead)
+                @if($this->isLeadCall)
                 <div class="border-t pt-4">
                     <div class="flex items-center mb-3">
                         <input type="checkbox" 

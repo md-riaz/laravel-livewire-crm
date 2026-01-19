@@ -25,6 +25,11 @@ class CallWrapUpModal extends Component
 
     public $followup_date = '';
 
+    public function getIsLeadCallProperty()
+    {
+        return $this->call && $this->call->related instanceof Lead;
+    }
+
     #[On('showCallWrapUpModal')]
     public function showModal($callId)
     {
@@ -81,28 +86,29 @@ class CallWrapUpModal extends Component
             'wrapup_notes' => $this->wrapup_notes,
         ]);
 
-        if ($this->call->related_type === Lead::class && $this->call->related_id) {
-            $lead = Lead::find($this->call->related_id);
+        if ($this->call->related instanceof Lead) {
+            $lead = $this->call->related;
             
-            if ($lead) {
-                $lead->update([
-                    'last_contacted_at' => now(),
-                    'next_followup_at' => $this->schedule_followup ? $this->followup_date : $lead->next_followup_at,
-                ]);
-
-                LeadActivity::create([
-                    'lead_id' => $lead->id,
-                    'user_id' => auth()->id(),
-                    'type' => 'call',
-                    'payload_json' => [
-                        'call_id' => $this->call->id,
-                        'direction' => $this->call->direction,
-                        'duration_seconds' => $this->call->duration_seconds,
-                        'disposition' => $disposition->name,
-                        'notes' => $this->wrapup_notes,
-                    ],
-                ]);
+            $updateData = ['last_contacted_at' => now()];
+            
+            if ($this->schedule_followup) {
+                $updateData['next_followup_at'] = $this->followup_date;
             }
+            
+            $lead->update($updateData);
+            
+            LeadActivity::create([
+                'lead_id' => $lead->id,
+                'user_id' => auth()->id(),
+                'type' => 'call',
+                'payload_json' => [
+                    'call_id' => $this->call->id,
+                    'direction' => $this->call->direction,
+                    'duration_seconds' => $this->call->duration_seconds,
+                    'disposition' => $disposition->name,
+                    'notes' => $this->wrapup_notes,
+                ],
+            ]);
         }
 
         session()->flash('success', 'Call wrap-up completed successfully!');
