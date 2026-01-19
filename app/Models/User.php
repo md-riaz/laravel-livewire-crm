@@ -90,6 +90,6 @@ class User extends Authenticatable
 
     public function canAccessTenant(): bool
     {
-        return $this->is_active && $this->tenant->isActive();
+        return $this->is_active && $this->tenant && $this->tenant->isActive();
     }
 }

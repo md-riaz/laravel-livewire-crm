@@ -15,11 +15,11 @@ class TenantService
     public function createTenantWithOwner(array $data): array
     {
         return DB::transaction(function () use ($data) {
-            // 1. Create tenant
+            // Create tenant
             $tenant = Tenant::create([
                 'name' => $data['company_name'],
                 'status' => 'active',
-                'timezone' => $data['timezone'] ?? 'UTC',
+                'timezone' => $data['timezone'] ?? config('app.timezone', 'UTC'),
             ]);
 
             // 2. Create owner user

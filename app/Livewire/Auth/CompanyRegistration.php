@@ -24,7 +24,7 @@ class CompanyRegistration extends Component
     #[Validate('required|same:password')]
     public $password_confirmation = '';
 
-    #[Validate('required|timezone')]
+    #[Validate('required|string')]
     public $timezone = 'UTC';
 
     public function mount()
