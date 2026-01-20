@@ -13,12 +13,14 @@ class RegistrationTest extends TestCase
 
     public function test_registration_page_is_accessible(): void
     {
+        $this->withoutVite();
         $response = $this->get('/register');
         $response->assertStatus(200);
     }
 
     public function test_registration_page_shows_invitation_message(): void
     {
+        $this->withoutVite();
         $response = $this->get('/register');
         $response->assertSee('Invitation Required');
         $response->assertSee('invitation from your company administrator');
