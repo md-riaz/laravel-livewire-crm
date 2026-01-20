@@ -1,5 +1,4 @@
 import { UserAgent, Registerer, Inviter, SessionState } from 'sip.js';
-import { SessionDescriptionHandler } from 'sip.js/lib/platform/web';
 
 export class SipAgent {
     constructor(config, livewireComponent) {

@@ -110,7 +110,7 @@ class ClickToCallManager {
      * Generate a unique request ID
      */
     generateRequestId() {
-        return `call-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        return `call-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
     }
 
     /**
