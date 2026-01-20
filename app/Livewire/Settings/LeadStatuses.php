@@ -270,6 +270,6 @@ class LeadStatuses extends Component
     public function render()
     {
         return view('livewire.settings.lead-statuses')
-            ->layout('layouts.settings', ['title' => 'Lead Statuses']);
+            ->layout('components.layouts.app', ['title' => 'Lead Statuses - Settings']);
     }
 }

@@ -24,6 +24,9 @@ All screenshots show **professional UI with proper Tailwind CSS styling** - beau
 
 ### Leads Management
 
+**Create Lead Modal with Professional Form Inputs**
+![Create Lead Modal](https://github.com/user-attachments/assets/25820cb8-865c-43d8-a8c5-0be36f6b7e81)
+
 **Empty Kanban Board**
 ![Empty Kanban](https://github.com/user-attachments/assets/b25c5df3-4d39-4d7e-9a3c-a1d85480381b)
 
@@ -38,13 +41,16 @@ All screenshots show **professional UI with proper Tailwind CSS styling** - beau
 ### Settings & Administration
 
 **Settings Dropdown Menu**
-![Settings Menu](https://github.com/user-attachments/assets/8613569d-eb6b-4a86-8b0c-015e55d54a07)
+![Settings Menu](https://github.com/user-attachments/assets/6d0a44fc-d2a4-4ec0-a3bc-8381a82e2f42)
+
+**SIP Credentials**
+![SIP Credentials](https://github.com/user-attachments/assets/a3397025-f134-4953-b2cd-2c5e631ba7a8)
 
 **Users Management**
-![Users Management](https://github.com/user-attachments/assets/10a4c084-e0a0-4108-83b4-1c030aca7fac)
+![Users Management](https://github.com/user-attachments/assets/30a858e7-03b0-410f-8122-045cfb768969)
 
 **Lead Statuses Configuration**
-![Lead Statuses](https://github.com/user-attachments/assets/baedade2-8d47-423c-8954-4aaa23a1c3e7)
+![Lead Statuses](https://github.com/user-attachments/assets/87ed6e69-9587-4e9e-b69f-f9190c2f4f40)
 
 > **📖 Want to try it yourself?** Check out the [Demo Guide](DEMO.md) for step-by-step instructions on setting up and exploring the application.
 
