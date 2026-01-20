@@ -11,7 +11,8 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Inter', 'Figtree', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                // Custom fonts with Tailwind v4 compatible fallbacks
+                sans: ['Inter', 'Figtree', 'ui-sans-serif', 'system-ui', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'],
             },
             colors: {
                 primary: {
