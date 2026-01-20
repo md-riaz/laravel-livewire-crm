@@ -2,22 +2,29 @@
 
 namespace App\Livewire\Settings;
 
+use App\Mail\UserInvitationMail;
 use App\Models\AuditLog;
 use App\Models\User;
+use App\Models\UserInvitation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class UsersManagement extends Component
 {
     public $users = [];
+    public $invitations = [];
     public $showModal = false;
+    public $showInviteModal = false;
     public $editingId = null;
     public $name = '';
     public $email = '';
     public $password = '';
     public $role = 'agent';
     public $isActive = true;
+    public $inviteEmail = '';
+    public $inviteRole = 'agent';
     public $roles = [
         'agent' => 'Agent',
         'supervisor' => 'Supervisor',
@@ -46,6 +53,7 @@ class UsersManagement extends Component
     public function mount(): void
     {
         $this->loadUsers();
+        $this->loadInvitations();
     }
 
     public function loadUsers(): void
@@ -68,10 +76,209 @@ class UsersManagement extends Component
             ->toArray();
     }
 
+    public function loadInvitations(): void
+    {
+        $this->invitations = UserInvitation::where('tenant_id', auth()->user()->tenant_id)
+            ->whereNull('accepted_at')
+            ->where('expires_at', '>', now())
+            ->with('invitedBy')
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(fn($invitation) => [
+                'id' => $invitation->id,
+                'email' => $invitation->email,
+                'role' => $invitation->role,
+                'invited_by' => $invitation->invitedBy->name,
+                'expires_at' => $invitation->expires_at->format('M j, Y g:i A'),
+                'expires_at_raw' => $invitation->expires_at,
+            ])
+            ->toArray();
+    }
+
     public function create(): void
     {
         $this->resetForm();
         $this->showModal = true;
+    }
+
+    public function openInviteModal(): void
+    {
+        $this->resetInviteForm();
+        $this->showInviteModal = true;
+    }
+
+    public function closeInviteModal(): void
+    {
+        $this->showInviteModal = false;
+        $this->resetInviteForm();
+    }
+
+    private function resetInviteForm(): void
+    {
+        $this->inviteEmail = '';
+        $this->inviteRole = 'agent';
+        $this->resetValidation();
+    }
+
+    public function sendInvite(): void
+    {
+        $this->validate([
+            'inviteEmail' => 'required|email|max:255',
+            'inviteRole' => 'required|in:agent,supervisor,tenant_admin',
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            $tenantId = auth()->user()->tenant_id;
+
+            // Check if user already exists
+            $existingUser = User::where('tenant_id', $tenantId)
+                ->where('email', $this->inviteEmail)
+                ->exists();
+
+            if ($existingUser) {
+                $this->addError('inviteEmail', 'A user with this email already exists.');
+                DB::rollBack();
+                return;
+            }
+
+            // Check if there's already a pending invitation
+            $existingInvitation = UserInvitation::where('tenant_id', $tenantId)
+                ->where('email', $this->inviteEmail)
+                ->whereNull('accepted_at')
+                ->where('expires_at', '>', now())
+                ->first();
+
+            if ($existingInvitation) {
+                $this->addError('inviteEmail', 'A pending invitation already exists for this email.');
+                DB::rollBack();
+                return;
+            }
+
+            // Generate token
+            $plainToken = UserInvitation::generateToken();
+
+            // Create invitation
+            $invitation = UserInvitation::create([
+                'tenant_id' => $tenantId,
+                'email' => $this->inviteEmail,
+                'token' => Hash::make($plainToken),
+                'role' => $this->inviteRole,
+                'invited_by_user_id' => auth()->id(),
+                'expires_at' => now()->addDays(7),
+            ]);
+
+            // Send invitation email
+            Mail::to($this->inviteEmail)->send(new UserInvitationMail(
+                $invitation,
+                $plainToken,
+                auth()->user()->name,
+                auth()->user()->tenant->name
+            ));
+
+            // Log action
+            AuditLog::create([
+                'tenant_id' => $tenantId,
+                'user_id' => auth()->id(),
+                'action' => 'user.invited',
+                'auditable_type' => UserInvitation::class,
+                'auditable_id' => $invitation->id,
+                'metadata' => [
+                    'email' => $this->inviteEmail,
+                    'role' => $this->inviteRole,
+                ],
+                'ip_address' => request()->ip(),
+                'user_agent' => request()->userAgent(),
+            ]);
+
+            DB::commit();
+
+            $this->loadInvitations();
+            $this->closeInviteModal();
+            session()->flash('success', 'Invitation sent successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $this->addError('general', 'Failed to send invitation: ' . $e->getMessage());
+        }
+    }
+
+    public function resendInvitation(int $id): void
+    {
+        try {
+            DB::beginTransaction();
+
+            $invitation = UserInvitation::where('tenant_id', auth()->user()->tenant_id)
+                ->whereNull('accepted_at')
+                ->findOrFail($id);
+
+            // Generate new token
+            $plainToken = UserInvitation::generateToken();
+            $invitation->token = Hash::make($plainToken);
+            $invitation->expires_at = now()->addDays(7);
+            $invitation->save();
+
+            // Resend email
+            Mail::to($invitation->email)->send(new UserInvitationMail(
+                $invitation,
+                $plainToken,
+                auth()->user()->name,
+                auth()->user()->tenant->name
+            ));
+
+            // Log action
+            AuditLog::create([
+                'tenant_id' => auth()->user()->tenant_id,
+                'user_id' => auth()->id(),
+                'action' => 'user.invitation_resent',
+                'auditable_type' => UserInvitation::class,
+                'auditable_id' => $invitation->id,
+                'metadata' => ['email' => $invitation->email],
+                'ip_address' => request()->ip(),
+                'user_agent' => request()->userAgent(),
+            ]);
+
+            DB::commit();
+
+            $this->loadInvitations();
+            session()->flash('success', 'Invitation resent successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $this->addError('general', 'Failed to resend invitation: ' . $e->getMessage());
+        }
+    }
+
+    public function revokeInvitation(int $id): void
+    {
+        try {
+            DB::beginTransaction();
+
+            $invitation = UserInvitation::where('tenant_id', auth()->user()->tenant_id)
+                ->whereNull('accepted_at')
+                ->findOrFail($id);
+
+            // Log action before deletion
+            AuditLog::create([
+                'tenant_id' => auth()->user()->tenant_id,
+                'user_id' => auth()->id(),
+                'action' => 'user.invitation_revoked',
+                'auditable_type' => UserInvitation::class,
+                'auditable_id' => $invitation->id,
+                'metadata' => ['email' => $invitation->email],
+                'ip_address' => request()->ip(),
+                'user_agent' => request()->userAgent(),
+            ]);
+
+            $invitation->delete();
+
+            DB::commit();
+
+            $this->loadInvitations();
+            session()->flash('success', 'Invitation revoked successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $this->addError('general', 'Failed to revoke invitation: ' . $e->getMessage());
+        }
     }
 
     public function edit(int $id): void

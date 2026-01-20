@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Auth\AcceptInvitation;
 use App\Livewire\Auth\CompanyRegistration;
 use App\Livewire\Auth\Login;
 use Illuminate\Support\Facades\Route;
@@ -11,6 +12,7 @@ Route::middleware('guest')->group(function () {
     });
     Route::get('/login', Login::class)->name('login');
     Route::get('/register-company', CompanyRegistration::class)->name('register-company');
+    Route::get('/accept-invitation/{token}', AcceptInvitation::class)->name('accept-invitation');
 });
 
 // Authenticated routes
