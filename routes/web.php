@@ -1,7 +1,7 @@
 <?php
 
 use App\Livewire\Auth\AcceptInvitation;
-use App\Livewire\Auth\CompanyRegistration;
+use App\Livewire\Auth\Register;
 use App\Livewire\Auth\Login;
 use Illuminate\Support\Facades\Route;
 
@@ -11,7 +11,7 @@ Route::middleware('guest')->group(function () {
         return redirect()->route('login');
     });
     Route::get('/login', Login::class)->name('login');
-    Route::get('/register-company', CompanyRegistration::class)->name('register-company');
+    Route::get('/register', Register::class)->name('register');
     Route::get('/accept-invitation/{token}', AcceptInvitation::class)->name('accept-invitation');
 });
 
@@ -21,7 +21,7 @@ Route::middleware(['auth'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/leads', \App\Livewire\Leads\Kanban::class)->name('leads.index');
+    Route::get('/leads', \App\Livewire\Leads\Index::class)->name('leads.index');
 
     Route::get('/calls', \App\Livewire\Calls\CallsLog::class)->name('calls.index');
 

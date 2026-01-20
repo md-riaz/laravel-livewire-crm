@@ -10,16 +10,20 @@ use Livewire\Attributes\On;
 
 class Kanban extends Component
 {
-    public $showCreateModal = false;
-    public $selectedLeadId = null;
+    public int $leadsPerColumn = 50;
+    public array $loadedColumns = [];
 
-    public function mount()
+    public function mount(): void
     {
-        //
+        // Load all columns initially
+        $statuses = LeadStatus::ordered()->get();
+        foreach ($statuses as $status) {
+            $this->loadedColumns[$status->id] = true;
+        }
     }
 
     #[On('leadMoved')]
-    public function moveLead($leadId, $newStatusId, $oldStatusId)
+    public function moveLead(int $leadId, int $newStatusId, int $oldStatusId): void
     {
         $lead = Lead::findOrFail($leadId);
         $newStatus = LeadStatus::findOrFail($newStatusId);
@@ -56,31 +60,11 @@ class Kanban extends Component
     }
 
     #[On('leadCreated')]
-    public function handleLeadCreated()
-    {
-        $this->showCreateModal = false;
-    }
-
     #[On('leadUpdated')]
-    public function handleLeadUpdated()
-    {
-        // Refresh the view
-    }
-
     #[On('leadDeleted')]
-    public function handleLeadDeleted()
+    public function handleLeadEvents(): void
     {
         // Refresh the view
-    }
-
-    public function openCreateModal()
-    {
-        $this->showCreateModal = true;
-    }
-
-    public function closeCreateModal()
-    {
-        $this->showCreateModal = false;
     }
 
     public function render()
@@ -90,14 +74,25 @@ class Kanban extends Component
         $leadsByStatus = [];
         foreach ($statuses as $status) {
             $leadsByStatus[$status->id] = Lead::where('lead_status_id', $status->id)
-                ->with(['assignedTo', 'createdBy'])
+                ->select([
+                    'id',
+                    'name',
+                    'company_name',
+                    'score',
+                    'estimated_value',
+                    'next_followup_at',
+                    'assigned_to_user_id',
+                    'lead_status_id',
+                ])
+                ->with(['assignedTo:id,name'])
                 ->orderBy('created_at', 'desc')
+                ->limit($this->leadsPerColumn)
                 ->get();
         }
 
         return view('livewire.leads.kanban', [
             'statuses' => $statuses,
             'leadsByStatus' => $leadsByStatus,
-        ])->layout('components.layouts.app');
+        ]);
     }
 }

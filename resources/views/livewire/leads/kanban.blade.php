@@ -1,18 +1,10 @@
 <div>
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold text-gray-900">Leads Pipeline</h1>
-        <button wire:click="openCreateModal" 
-                class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-            + New Lead
-        </button>
-    </div>
-
     <!-- Kanban Board -->
     <div class="flex gap-4 overflow-x-auto pb-4" 
          x-data="kanbanBoard()"
          @lead-moved:success.window="$wire.$refresh()">
         @foreach($statuses as $status)
-            <div class="flex-shrink-0 w-80">
+            <div class="flex-shrink-0 w-80" wire:key="status-{{ $status->id }}">
                 <!-- Column Header -->
                 <div class="bg-white rounded-t-lg p-4 border-b-4" style="border-bottom-color: {{ $status->color }}">
                     <div class="flex items-center justify-between">
@@ -34,6 +26,7 @@
                              draggable="true"
                              data-lead-id="{{ $lead->id }}"
                              data-status-id="{{ $status->id }}"
+                             wire:key="lead-{{ $lead->id }}"
                              @dragstart="handleDragStart($event, {{ $lead->id }}, {{ $status->id }})"
                              @click.stop="$dispatch('openLeadDrawer', { leadId: {{ $lead->id }} })">
                             
@@ -76,14 +69,6 @@
         @endforeach
     </div>
 
-    <!-- Create Lead Modal -->
-    @if($showCreateModal)
-        @livewire('leads.create-lead-modal')
-    @endif
-
-    <!-- Lead Drawer -->
-    @livewire('leads.lead-drawer')
-
     <script>
         function kanbanBoard() {
             return {
@@ -124,4 +109,3 @@
             };
         }
     </script>
-</div>
