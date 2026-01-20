@@ -2,6 +2,26 @@
 
 A production-ready, multi-tenant SaaS CRM application built with Laravel 11, Livewire v3, Alpine.js, and Tailwind CSS.
 
+## 📸 Demo Screenshots
+
+### Registration Page
+![Registration Page](https://github.com/user-attachments/assets/6eb0f352-ecdf-46e8-ab3f-67924113a2cc)
+
+### Dashboard
+![Dashboard](https://github.com/user-attachments/assets/101e5d3f-c677-40be-8447-b5882f2d1875)
+
+### Leads Kanban Board
+![Leads Kanban](https://github.com/user-attachments/assets/ba3c4b95-7eba-408c-9dd6-963fe999e663)
+
+### Call Logs
+![Call Logs](https://github.com/user-attachments/assets/93917e8f-fde2-4401-8ce2-7edc99f86601)
+
+### Settings Menu
+![Settings](https://github.com/user-attachments/assets/f1583f60-b479-467e-ac93-9edab5637446)
+
+### Login Page
+![Login Page](https://github.com/user-attachments/assets/cf7d0cf0-e434-43b3-baf9-133228e52778)
+
 ## Features Implemented
 
 ### ✅ Core Infrastructure

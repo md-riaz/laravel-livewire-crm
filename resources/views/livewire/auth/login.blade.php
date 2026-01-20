@@ -47,7 +47,7 @@
 
         <div class="text-center text-sm">
             <span class="text-gray-600">Don't have an account?</span>
-            <a href="{{ route('register-company') }}" class="font-medium text-blue-600 hover:text-blue-500">
+            <a href="{{ route('register') }}" class="font-medium text-blue-600 hover:text-blue-500">
                 Register your company
             </a>
         </div>
