@@ -4,57 +4,47 @@ A production-ready, multi-tenant SaaS CRM application built with Laravel 11, Liv
 
 ## 📸 Demo Screenshots
 
+All screenshots show **professional UI with proper Tailwind CSS styling** - beautiful cards, colors, shadows, and responsive design.
+
 ### Authentication & Onboarding
 
 **Registration Page**
-![Registration Page](https://github.com/user-attachments/assets/c72e9b56-e724-4c12-8084-97731753edb0)
+![Registration Page](https://github.com/user-attachments/assets/b8ae6bda-6c6d-4dc4-b395-f0e38abf1418)
 
 **Registration Form Filled**
-![Registration Filled](https://github.com/user-attachments/assets/28df5ce1-e47c-4dd6-8903-d6b8c821d6a5)
+![Registration Filled](https://github.com/user-attachments/assets/e64b89bb-027f-45ed-a98e-a9cddca3edf0)
 
 **Login Page**
-![Login Page](https://github.com/user-attachments/assets/d32fa592-a032-4a6b-9892-2d115cd92320)
+![Login Page](https://github.com/user-attachments/assets/5b79e6f0-a2c9-4b34-9748-08e85c8e20a7)
 
 ### Dashboard
 
-**Dashboard Overview**
-![Dashboard](https://github.com/user-attachments/assets/4eb7c031-047d-4dff-b6f9-18a04138b547)
-
-**Dashboard with Real Data**
-![Dashboard with Data](https://github.com/user-attachments/assets/a020af00-3c55-47bd-a38e-cfadd1498cf3)
+**Dashboard with Metrics**
+![Dashboard](https://github.com/user-attachments/assets/e429e061-96db-4c84-8561-6384f2e368c0)
 
 ### Leads Management
 
-**Create Lead Modal**
-![Create Lead](https://github.com/user-attachments/assets/8ea0a99b-2357-4cae-9f7f-0da7fda4ae6c)
+**Empty Kanban Board**
+![Empty Kanban](https://github.com/user-attachments/assets/b25c5df3-4d39-4d7e-9a3c-a1d85480381b)
 
-**Kanban with Single Lead**
-![Kanban Initial](https://github.com/user-attachments/assets/6d3e8d3b-d841-42ea-b0b3-bad3b01c92e0)
-
-**Full Pipeline with Multiple Leads**
-![Full Pipeline](https://github.com/user-attachments/assets/7eee5b4a-4176-40cf-aa42-7b2ae51dba10)
+**Full Pipeline with 6 Leads**
+![Full Pipeline](https://github.com/user-attachments/assets/3c432fbd-e855-48d3-90e8-e0530aed2f97)
 
 ### Call Management
 
 **Call Logs with Filters**
-![Call Logs](https://github.com/user-attachments/assets/8b084c0e-6f5e-41ad-aa0c-adc88a2583f6)
-
-**Agent Console**
-![Agent Console](https://github.com/user-attachments/assets/43c715c7-7195-4435-baef-763ee71dd4c6)
+![Call Logs](https://github.com/user-attachments/assets/d63a1253-9a60-4941-9a14-c74772713efe)
 
 ### Settings & Administration
 
-**Settings Menu**
-![Settings Menu](https://github.com/user-attachments/assets/a2507e49-0c47-46b1-a985-3891ab1b4651)
+**Settings Dropdown Menu**
+![Settings Menu](https://github.com/user-attachments/assets/8613569d-eb6b-4a86-8b0c-015e55d54a07)
 
 **Users Management**
-![Users Management](https://github.com/user-attachments/assets/5bbe08ce-c52d-4887-b729-5f795e6471a1)
+![Users Management](https://github.com/user-attachments/assets/10a4c084-e0a0-4108-83b4-1c030aca7fac)
 
 **Lead Statuses Configuration**
-![Lead Statuses](https://github.com/user-attachments/assets/4244a840-6b0e-48e7-8f40-9f8ccd0ed4bf)
-
-**Call Dispositions Settings**
-![Call Dispositions](https://github.com/user-attachments/assets/6f47f1b6-26c4-49e3-b889-cf180c12af52)
+![Lead Statuses](https://github.com/user-attachments/assets/baedade2-8d47-423c-8954-4aaa23a1c3e7)
 
 > **📖 Want to try it yourself?** Check out the [Demo Guide](DEMO.md) for step-by-step instructions on setting up and exploring the application.
 
