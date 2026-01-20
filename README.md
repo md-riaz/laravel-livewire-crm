@@ -80,7 +80,7 @@ All screenshots show **professional UI with proper Tailwind CSS styling** - beau
 - **Laravel**: 11 (latest stable)
 - **Livewire**: v3
 - **Alpine.js**: Client-side reactivity
-- **Tailwind CSS**: Custom utility-first CSS
+- **Tailwind CSS**: v4 (latest with native CSS configuration)
 - **Database**: MySQL 8 / PostgreSQL 15 / SQLite
 - **Queue Driver**: Laravel database queue
 - **Testing**: PHPUnit + Laravel test framework
@@ -137,9 +137,14 @@ php artisan migrate
 7. **Build frontend assets**
 ```bash
 npm run build
-# Or for development:
+# Or for development (note: dev server won't work in CI environments):
 npm run dev
 ```
+
+> **Note**: This project uses Tailwind CSS v4 with native CSS configuration (`@import "tailwindcss"`). The build process automatically compiles all Tailwind utilities based on the classes used in your Blade templates and PHP files. The configuration files are:
+> - `resources/css/app.css` - Main CSS file with Tailwind import
+> - `tailwind.config.js` - Content paths and theme extensions
+> - `postcss.config.js` - PostCSS configuration with `@tailwindcss/postcss` plugin
 
 8. **Start the development server**
 ```bash
