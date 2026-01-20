@@ -137,7 +137,7 @@ php artisan migrate
 7. **Build frontend assets**
 ```bash
 npm run build
-# Or for development (note: dev server won't work in CI environments):
+# Or for development with hot reloading (use build for production/CI):
 npm run dev
 ```
 
