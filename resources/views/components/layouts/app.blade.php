@@ -32,11 +32,32 @@
                     Agent Console
                 </a>
                 @endif
-                @if(auth()->user()->hasPermission('settings.manage'))
-                <a href="{{ route('settings.index') }}" class="block px-4 py-2 rounded hover:bg-gray-800 {{ request()->routeIs('settings.*') ? 'bg-gray-800' : '' }}">
-                    Settings
-                </a>
-                @endif
+                
+                <!-- Settings Dropdown -->
+                <div x-data="{ open: {{ request()->routeIs('settings.*') ? 'true' : 'false' }} }">
+                    <button @click="open = !open" class="w-full flex items-center justify-between px-4 py-2 rounded hover:bg-gray-800 {{ request()->routeIs('settings.*') ? 'bg-gray-800' : '' }}">
+                        <span>Settings</span>
+                        <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div x-show="open" x-collapse class="ml-4 mt-1 space-y-1">
+                        <a href="{{ route('settings.sip-credentials') }}" class="block px-4 py-2 text-sm rounded hover:bg-gray-800 {{ request()->routeIs('settings.sip-credentials') ? 'bg-gray-800' : '' }}">
+                            My SIP Credentials
+                        </a>
+                        @if(auth()->user()->role === 'tenant_admin')
+                            <a href="{{ route('settings.lead-statuses') }}" class="block px-4 py-2 text-sm rounded hover:bg-gray-800 {{ request()->routeIs('settings.lead-statuses') ? 'bg-gray-800' : '' }}">
+                                Lead Statuses
+                            </a>
+                            <a href="{{ route('settings.call-dispositions') }}" class="block px-4 py-2 text-sm rounded hover:bg-gray-800 {{ request()->routeIs('settings.call-dispositions') ? 'bg-gray-800' : '' }}">
+                                Call Dispositions
+                            </a>
+                            <a href="{{ route('settings.users') }}" class="block px-4 py-2 text-sm rounded hover:bg-gray-800 {{ request()->routeIs('settings.users') ? 'bg-gray-800' : '' }}">
+                                Users Management
+                            </a>
+                        @endif
+                    </div>
+                </div>
             </nav>
             <div class="p-4 border-t border-gray-800">
                 <div class="flex items-center">

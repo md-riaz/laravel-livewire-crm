@@ -35,9 +35,17 @@ Route::middleware(['auth'])->group(function () {
         return response()->json(['password' => $credential->sip_password]);
     })->name('agent.console.sip-password');
 
-    Route::get('/settings', function () {
-        return view('settings.index');
-    })->name('settings.index');
+    // Settings routes
+    Route::prefix('settings')->name('settings.')->group(function () {
+        Route::get('/sip-credentials', \App\Livewire\Settings\SipCredentials::class)->name('sip-credentials');
+        
+        // Admin only routes
+        Route::middleware(\App\Http\Middleware\CheckRole::class . ':tenant_admin')->group(function () {
+            Route::get('/lead-statuses', \App\Livewire\Settings\LeadStatuses::class)->name('lead-statuses');
+            Route::get('/call-dispositions', \App\Livewire\Settings\CallDispositions::class)->name('call-dispositions');
+            Route::get('/users', \App\Livewire\Settings\UsersManagement::class)->name('users');
+        });
+    });
 
     Route::post('/logout', function () {
         auth()->logout();
