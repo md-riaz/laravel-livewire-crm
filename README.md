@@ -22,6 +22,8 @@ A production-ready, multi-tenant SaaS CRM application built with Laravel 11, Liv
 ### Login Page
 ![Login Page](https://github.com/user-attachments/assets/cf7d0cf0-e434-43b3-baf9-133228e52778)
 
+> **📖 Want to try it yourself?** Check out the [Demo Guide](DEMO.md) for step-by-step instructions on setting up and exploring the application.
+
 ## Features Implemented
 
 ### ✅ Core Infrastructure
