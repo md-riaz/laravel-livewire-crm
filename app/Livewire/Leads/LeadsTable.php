@@ -100,8 +100,9 @@ class LeadsTable extends Component
         $this->selectAll = !$this->selectAll;
         
         if ($this->selectAll) {
-            $this->selectedLeads = $this->getFilteredLeads()
-                ->pluck('id')
+            // Only select IDs from the current page for efficiency
+            $leads = $this->getFilteredLeads()->paginate(50);
+            $this->selectedLeads = $leads->pluck('id')
                 ->map(fn($id) => (string) $id)
                 ->toArray();
         } else {
