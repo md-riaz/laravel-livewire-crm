@@ -173,6 +173,6 @@ class SipCredentials extends Component
     public function render()
     {
         return view('livewire.settings.sip-credentials')
-            ->layout('layouts.settings', ['title' => 'SIP Credentials']);
+            ->layout('components.layouts.app', ['title' => 'SIP Credentials - Settings']);
     }
 }

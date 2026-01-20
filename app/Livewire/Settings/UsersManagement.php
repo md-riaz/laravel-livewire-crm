@@ -410,6 +410,6 @@ class UsersManagement extends Component
     public function render()
     {
         return view('livewire.settings.users-management')
-            ->layout('layouts.settings', ['title' => 'Users Management']);
+            ->layout('components.layouts.app', ['title' => 'Users Management - Settings']);
     }
 }

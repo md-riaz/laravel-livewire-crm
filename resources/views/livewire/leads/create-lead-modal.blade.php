@@ -45,7 +45,7 @@
                             </svg>
                         </div>
                         <input type="text" id="name" wire:model="name" 
-                               class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-20 transition-colors @error('name') border-red-300 focus:border-red-500 focus:ring-red-500 @enderror"
+                               class="pl-10 block w-full h-10 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-150 @error('name') border-red-500 focus:ring-red-500 @enderror"
                                placeholder="John Doe">
                     </div>
                     @error('name') <p class="mt-1.5 text-sm text-red-600">{{ $message }}</p> @enderror
@@ -61,7 +61,7 @@
                             </svg>
                         </div>
                         <input type="text" id="company_name" wire:model="company_name" 
-                               class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-20 transition-colors"
+                               class="pl-10 block w-full h-10 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-150"
                                placeholder="Acme Inc">
                     </div>
                     @error('company_name') <p class="mt-1.5 text-sm text-red-600">{{ $message }}</p> @enderror
@@ -77,7 +77,7 @@
                             </svg>
                         </div>
                         <input type="email" id="email" wire:model="email" 
-                               class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-20 transition-colors"
+                               class="pl-10 block w-full h-10 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-150"
                                placeholder="john@example.com">
                     </div>
                     @error('email') <p class="mt-1.5 text-sm text-red-600">{{ $message }}</p> @enderror
@@ -93,7 +93,7 @@
                             </svg>
                         </div>
                         <input type="text" id="phone" wire:model="phone" 
-                               class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-20 transition-colors"
+                               class="pl-10 block w-full h-10 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-150"
                                placeholder="+1 (555) 000-0000">
                     </div>
                     @error('phone') <p class="mt-1.5 text-sm text-red-600">{{ $message }}</p> @enderror
@@ -109,7 +109,7 @@
                             </svg>
                         </div>
                         <input type="text" id="source" wire:model="source" placeholder="e.g., Website, Referral" 
-                               class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-20 transition-colors">
+                               class="pl-10 block w-full h-10 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-150">
                     </div>
                     @error('source') <p class="mt-1.5 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
@@ -126,7 +126,7 @@
                             </svg>
                         </div>
                         <select id="score" wire:model="score" 
-                                class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-20 transition-colors">
+                                class="pl-10 block w-full h-10 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-150">
                             <option value="hot">🔥 Hot</option>
                             <option value="warm">☀️ Warm</option>
                             <option value="cold">❄️ Cold</option>
@@ -145,7 +145,7 @@
                             </svg>
                         </div>
                         <input type="number" id="estimated_value" wire:model="estimated_value" step="0.01" min="0"
-                               class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-20 transition-colors"
+                               class="pl-10 block w-full h-10 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-150"
                                placeholder="10000">
                     </div>
                     @error('estimated_value') <p class="mt-1.5 text-sm text-red-600">{{ $message }}</p> @enderror
@@ -161,7 +161,7 @@
                             </svg>
                         </div>
                         <select id="assigned_to_user_id" wire:model="assigned_to_user_id" 
-                                class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-20 transition-colors">
+                                class="pl-10 block w-full h-10 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-150">
                             <option value="">Unassigned</option>
                             @foreach($users as $user)
                                 <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->role }})</option>

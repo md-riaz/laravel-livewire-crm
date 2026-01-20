@@ -235,6 +235,6 @@ class CallDispositions extends Component
     public function render()
     {
         return view('livewire.settings.call-dispositions')
-            ->layout('layouts.settings', ['title' => 'Call Dispositions']);
+            ->layout('components.layouts.app', ['title' => 'Call Dispositions - Settings']);
     }
 }
