@@ -97,8 +97,10 @@
                                         <input type="text" id="phone" wire:model="phone" 
                                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                         @if($lead->phone)
-                                            <button type="button" wire:click="clickToCall" 
-                                                    class="mt-1 px-3 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
+                                            <button type="button" 
+                                                    onclick="clickToCall('{{ $lead->phone }}', 'lead', {{ $lead->id }})"
+                                                    class="mt-1 px-3 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+                                                    title="Click to call">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                                                 </svg>
