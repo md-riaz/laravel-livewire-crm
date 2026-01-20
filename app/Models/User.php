@@ -75,6 +75,11 @@ class User extends Authenticatable
         return $this->hasOne(AgentSipCredential::class);
     }
 
+    public function sentInvitations()
+    {
+        return $this->hasMany(UserInvitation::class, 'invited_by_user_id');
+    }
+
     public function hasPermission(string $permission): bool
     {
         // Simple permission check - can be extended
