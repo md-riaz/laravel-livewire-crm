@@ -10,10 +10,21 @@
 </head>
 <body class="antialiased bg-gray-50">
     <div class="flex h-screen overflow-hidden">
+        <!-- Mobile Sidebar Backdrop -->
+        <div x-show="sidebarOpen" 
+             @click="sidebarOpen = false"
+             x-transition:enter="transition-opacity ease-linear duration-300"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="transition-opacity ease-linear duration-300"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"
+             class="fixed inset-0 bg-gray-600 bg-opacity-75 z-20 lg:hidden">
+        </div>
+
         <!-- Sidebar -->
-        <aside class="w-64 bg-gray-900 text-white flex flex-col" 
-               :class="{ 'hidden': !sidebarOpen, 'block': sidebarOpen }"
-               @click.away="sidebarOpen = false">
+        <aside class="fixed lg:static inset-y-0 left-0 z-30 w-64 bg-gray-900 text-white flex flex-col transform transition-transform duration-300 ease-in-out lg:translate-x-0" 
+               :class="{ '-translate-x-full': !sidebarOpen, 'translate-x-0': sidebarOpen }">
             <div class="flex items-center justify-center h-16 bg-gray-800">
                 <span class="text-xl font-semibold">CRM</span>
             </div>

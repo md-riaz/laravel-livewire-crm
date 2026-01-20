@@ -15,8 +15,8 @@
         <div class="absolute inset-0 bg-gray-500 bg-opacity-75" @click="$wire.closeDrawer()"></div>
 
         <!-- Slide-over panel -->
-        <div class="fixed inset-y-0 right-0 pl-10 max-w-full flex">
-            <div class="w-screen max-w-2xl"
+        <div class="fixed inset-y-0 right-0 pl-4 sm:pl-10 max-w-full flex">
+            <div class="w-screen max-w-full sm:max-w-2xl"
                  x-show="show"
                  x-transition:enter="transform transition ease-in-out duration-500"
                  x-transition:enter-start="translate-x-full"
