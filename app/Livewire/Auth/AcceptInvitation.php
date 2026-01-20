@@ -14,7 +14,7 @@ class AcceptInvitation extends Component
     public string $token = '';
     public string $name = '';
     public string $password = '';
-    public string $passwordConfirmation = '';
+    public string $password_confirmation = '';
     public bool $invalidInvitation = false;
     public string $errorMessage = '';
 
@@ -34,10 +34,14 @@ class AcceptInvitation extends Component
 
     private function loadInvitation(): void
     {
+        // NOTE: Token verification requires loading invitations from DB because tokens are bcrypt-hashed.
+        // For high-traffic applications, consider using a separate unhashed token_identifier field
+        // or implementing a caching layer to minimize database queries.
         $invitations = UserInvitation::whereNull('accepted_at')
             ->where('expires_at', '>', now())
             ->get();
 
+        // Verify token against hashed values
         foreach ($invitations as $inv) {
             if ($inv->verifyToken($this->token)) {
                 $this->invitation = $inv;

@@ -53,9 +53,10 @@
 
             <!-- Password Confirmation -->
             <div>
-                <label for="passwordConfirmation" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-                <input type="password" id="passwordConfirmation" wire:model="passwordConfirmation" 
-                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                <input type="password" id="password_confirmation" wire:model="password_confirmation" 
+                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('password_confirmation') border-red-500 @enderror">
+                @error('password_confirmation') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
             </div>
 
             <!-- Submit Button -->
