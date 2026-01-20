@@ -27,9 +27,11 @@
                 <a href="{{ route('calls.index') }}" class="block px-4 py-2 rounded hover:bg-gray-800 {{ request()->routeIs('calls.*') ? 'bg-gray-800' : '' }}">
                     Calls
                 </a>
+                @if(in_array(auth()->user()->role, ['agent', 'supervisor', 'tenant_admin']))
                 <a href="{{ route('agent.console') }}" class="block px-4 py-2 rounded hover:bg-gray-800 {{ request()->routeIs('agent.console') ? 'bg-gray-800' : '' }}">
                     Agent Console
                 </a>
+                @endif
                 @if(auth()->user()->hasPermission('settings.manage'))
                 <a href="{{ route('settings.index') }}" class="block px-4 py-2 rounded hover:bg-gray-800 {{ request()->routeIs('settings.*') ? 'bg-gray-800' : '' }}">
                     Settings
@@ -73,6 +75,7 @@
             </main>
         </div>
     </div>
+    @stack('scripts')
     @livewireScripts
 </body>
 </html>

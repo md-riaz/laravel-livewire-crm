@@ -23,9 +23,17 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/calls', \App\Livewire\Calls\CallsLog::class)->name('calls.index');
 
-    Route::get('/agent/console', function () {
-        return view('agent.console');
-    })->name('agent.console');
+    Route::get('/agent/console', \App\Livewire\Agent\Console::class)->name('agent.console');
+
+    Route::post('/agent/console/sip-password', function () {
+        $credential = auth()->user()->sipCredential;
+        
+        if (!$credential) {
+            return response()->json(['password' => ''], 404);
+        }
+        
+        return response()->json(['password' => $credential->sip_password]);
+    })->name('agent.console.sip-password');
 
     Route::get('/settings', function () {
         return view('settings.index');
