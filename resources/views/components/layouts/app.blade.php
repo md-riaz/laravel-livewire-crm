@@ -93,7 +93,7 @@
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
                         <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
-                            <span class="text-sm font-medium text-gray-300">{{ substr(auth()->user()->name, 0, 2) }}</span>
+                            <span class="text-sm font-medium text-gray-300">{{ mb_substr(auth()->user()->name, 0, 2) }}</span>
                         </div>
                     </div>
                     <div class="ml-3 flex-1">

@@ -40,8 +40,10 @@
                                         {{ $lead->score === 'hot' ? 'bg-red-100 text-red-700' : '' }}
                                         {{ $lead->score === 'warm' ? 'bg-yellow-100 text-yellow-700' : '' }}
                                         {{ $lead->score === 'cold' ? 'bg-blue-100 text-blue-700' : '' }}">
-                                        @if($lead->score === 'hot') 🔥 @elseif($lead->score === 'warm') ☀️ @else ❄️ @endif
-                                        {{ ucfirst($lead->score) }}
+                                        @php
+                                            $scoreIcons = ['hot' => '🔥', 'warm' => '☀️', 'cold' => '❄️'];
+                                        @endphp
+                                        {{ $scoreIcons[$lead->score] ?? '' }} {{ ucfirst($lead->score) }}
                                     </span>
                                 @endif
                             </div>

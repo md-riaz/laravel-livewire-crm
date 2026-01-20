@@ -98,7 +98,7 @@
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0 w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                                    <span class="text-sm font-medium text-gray-600">{{ substr($user['name'], 0, 2) }}</span>
+                                    <span class="text-sm font-medium text-gray-600">{{ mb_substr($user['name'], 0, 2) }}</span>
                                 </div>
                                 <div class="ml-4">
                                     <div class="text-sm font-medium text-gray-900">{{ $user['name'] }}</div>
