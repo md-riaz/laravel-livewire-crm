@@ -87,7 +87,7 @@ class CallDispositions extends Component
             // If setting as default, unset other defaults
             if ($this->isDefault) {
                 CallDisposition::where('tenant_id', auth()->user()->tenant_id)
-                    ->where('id', '!=', $this->editingId ?: 0)
+                    ->where('id', '!=', $this->editingId ?? 0)
                     ->update(['is_default' => false]);
             }
 

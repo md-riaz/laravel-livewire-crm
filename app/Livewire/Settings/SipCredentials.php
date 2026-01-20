@@ -92,7 +92,9 @@ class SipCredentials extends Component
             return;
         }
 
-        $credential = AgentSipCredential::where('user_id', $this->selectedUserId)->first();
+        $credential = AgentSipCredential::where('user_id', $this->selectedUserId)
+            ->where('tenant_id', auth()->user()->tenant_id)
+            ->first();
 
         if ($credential) {
             $this->sipWsUrl = $credential->sip_ws_url ?? '';
