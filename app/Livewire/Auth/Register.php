@@ -2,30 +2,56 @@
 
 namespace App\Livewire\Auth;
 
+use App\Services\TenantService;
 use Livewire\Component;
 use Livewire\Attributes\Validate;
+use Illuminate\Support\Facades\Auth;
 
 class Register extends Component
 {
     #[Validate('required|min:2')]
-    public string $name = '';
+    public $company_name = '';
+
+    #[Validate('required|min:2')]
+    public $owner_name = '';
 
     #[Validate('required|email|unique:users,email')]
-    public string $email = '';
+    public $owner_email = '';
 
     #[Validate('required|min:8')]
-    public string $password = '';
+    public $password = '';
 
     #[Validate('required|same:password')]
-    public string $password_confirmation = '';
+    public $password_confirmation = '';
 
-    public function register()
+    #[Validate('required|string')]
+    public $timezone = 'UTC';
+
+    public function mount()
+    {
+        // Try to guess timezone from browser (can be enhanced with JS)
+        $this->timezone = config('app.timezone', 'UTC');
+    }
+
+    public function register(TenantService $tenantService)
     {
         $this->validate();
 
-        // Registration is now handled via invitation system
-        // This page displays info about joining via invitation
-        session()->flash('info', 'Please contact your administrator to receive an invitation link.');
+        $result = $tenantService->createTenantWithOwner([
+            'company_name' => $this->company_name,
+            'owner_name' => $this->owner_name,
+            'owner_email' => $this->owner_email,
+            'password' => $this->password,
+            'timezone' => $this->timezone,
+        ]);
+
+        // Log the owner in
+        Auth::login($result['user']);
+
+        session()->flash('success', 'Company registered successfully!');
+
+        // Redirect to dashboard
+        return redirect()->route('dashboard');
     }
 
     public function render()
