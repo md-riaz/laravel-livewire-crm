@@ -36,7 +36,7 @@
                 @error('sipWsUrl')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
-                <p class="mt-1 text-xs text-gray-500">The WebSocket URL must start with wss://</p>
+                <p class="mt-1 text-xs text-gray-500">Format: wss://domain:port (e.g., wss://sip.example.com:7443)</p>
             </div>
 
             <!-- SIP Username -->

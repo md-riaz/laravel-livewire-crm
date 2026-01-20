@@ -23,18 +23,23 @@ class SipCredentials extends Component
     protected function rules(): array
     {
         return [
-            'sipWsUrl' => 'required|url|starts_with:wss://',
+            'sipWsUrl' => [
+                'required',
+                'url',
+                'regex:/^wss:\/\/[a-zA-Z0-9\-\.]+:[0-9]{1,5}(\/.*)?$/',
+            ],
             'sipUsername' => 'required|string|max:255',
             'sipPassword' => 'required|string|min:6|max:255',
-            'sipDomain' => 'required|string|max:255',
+            'sipDomain' => 'required|string|regex:/^[a-zA-Z0-9\-\.]+$/',
             'displayName' => 'required|string|max:255',
             'autoRegister' => 'boolean',
         ];
     }
 
     protected $messages = [
-        'sipWsUrl.starts_with' => 'The SIP WebSocket URL must start with wss://',
+        'sipWsUrl.regex' => 'The SIP WebSocket URL must be in format: wss://domain:port',
         'sipPassword.min' => 'The SIP password must be at least 6 characters.',
+        'sipDomain.regex' => 'The SIP domain must be a valid domain name.',
     ];
 
     public function mount(): void

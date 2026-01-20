@@ -51,7 +51,8 @@ class UsersManagement extends Component
     public function loadUsers(): void
     {
         $this->users = User::where('tenant_id', auth()->user()->tenant_id)
-            ->withCount(['sipCredential', 'assignedLeads', 'calls'])
+            ->with('sipCredential')
+            ->withCount(['assignedLeads', 'calls'])
             ->orderBy('name')
             ->get()
             ->map(fn($user) => [
@@ -60,7 +61,7 @@ class UsersManagement extends Component
                 'email' => $user->email,
                 'role' => $user->role,
                 'is_active' => $user->is_active,
-                'has_sip_credentials' => $user->sip_credential_count > 0,
+                'has_sip_credentials' => $user->sipCredential !== null,
                 'assigned_leads_count' => $user->assigned_leads_count,
                 'calls_count' => $user->calls_count,
             ])
