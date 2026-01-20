@@ -4,7 +4,7 @@
          x-data="kanbanBoard()"
          @lead-moved:success.window="$wire.$refresh()">
         @foreach($statuses as $status)
-            <div class="flex-shrink-0 w-80" wire:key="status-{{ $status->id }}">
+            <div class="shrink-0 w-80" wire:key="status-{{ $status->id }}">
                 <!-- Column Header -->
                 <div class="bg-white rounded-t-lg p-4 border-b-4" style="border-bottom-color: {{ $status->color }}">
                     <div class="flex items-center justify-between">
