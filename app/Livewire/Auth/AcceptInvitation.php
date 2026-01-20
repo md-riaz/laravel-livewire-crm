@@ -37,8 +37,10 @@ class AcceptInvitation extends Component
         // NOTE: Token verification requires loading invitations from DB because tokens are bcrypt-hashed.
         // For high-traffic applications, consider using a separate unhashed token_identifier field
         // or implementing a caching layer to minimize database queries.
-        $invitations = UserInvitation::whereNull('accepted_at')
+        $invitations = UserInvitation::with('invitedBy')
+            ->whereNull('accepted_at')
             ->where('expires_at', '>', now())
+            ->limit(100) // Reasonable limit for pending invitations
             ->get();
 
         // Verify token against hashed values

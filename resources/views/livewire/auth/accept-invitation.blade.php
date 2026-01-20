@@ -21,7 +21,11 @@
         @if($invitation)
             <div class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-md">
                 <p class="text-sm text-blue-800">
-                    <strong>{{ $invitation->invitedBy->name }}</strong> has invited you to join as a <strong>{{ ucfirst(str_replace('_', ' ', $invitation->role)) }}</strong>
+                    @if($invitation->invitedBy)
+                        <strong>{{ $invitation->invitedBy->name }}</strong> has invited you to join as a <strong>{{ ucfirst(str_replace('_', ' ', $invitation->role)) }}</strong>
+                    @else
+                        <strong>You have been invited</strong> to join as a <strong>{{ ucfirst(str_replace('_', ' ', $invitation->role)) }}</strong>
+                    @endif
                 </p>
                 <p class="text-xs text-blue-600 mt-1">Email: {{ $invitation->email }}</p>
             </div>
