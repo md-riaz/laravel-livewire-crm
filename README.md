@@ -2,6 +2,52 @@
 
 A production-ready, multi-tenant SaaS CRM application built with Laravel 11, Livewire v3, Alpine.js, and Tailwind CSS.
 
+## 📸 Demo Screenshots
+
+All screenshots show **professional UI with proper Tailwind CSS styling** - beautiful cards, colors, shadows, and responsive design.
+
+### Authentication & Onboarding
+
+**Registration Page**
+![Registration Page](https://github.com/user-attachments/assets/b8ae6bda-6c6d-4dc4-b395-f0e38abf1418)
+
+**Registration Form Filled**
+![Registration Filled](https://github.com/user-attachments/assets/e64b89bb-027f-45ed-a98e-a9cddca3edf0)
+
+**Login Page**
+![Login Page](https://github.com/user-attachments/assets/5b79e6f0-a2c9-4b34-9748-08e85c8e20a7)
+
+### Dashboard
+
+**Dashboard with Metrics**
+![Dashboard](https://github.com/user-attachments/assets/e429e061-96db-4c84-8561-6384f2e368c0)
+
+### Leads Management
+
+**Empty Kanban Board**
+![Empty Kanban](https://github.com/user-attachments/assets/b25c5df3-4d39-4d7e-9a3c-a1d85480381b)
+
+**Full Pipeline with 6 Leads**
+![Full Pipeline](https://github.com/user-attachments/assets/3c432fbd-e855-48d3-90e8-e0530aed2f97)
+
+### Call Management
+
+**Call Logs with Filters**
+![Call Logs](https://github.com/user-attachments/assets/d63a1253-9a60-4941-9a14-c74772713efe)
+
+### Settings & Administration
+
+**Settings Dropdown Menu**
+![Settings Menu](https://github.com/user-attachments/assets/8613569d-eb6b-4a86-8b0c-015e55d54a07)
+
+**Users Management**
+![Users Management](https://github.com/user-attachments/assets/10a4c084-e0a0-4108-83b4-1c030aca7fac)
+
+**Lead Statuses Configuration**
+![Lead Statuses](https://github.com/user-attachments/assets/baedade2-8d47-423c-8954-4aaa23a1c3e7)
+
+> **📖 Want to try it yourself?** Check out the [Demo Guide](DEMO.md) for step-by-step instructions on setting up and exploring the application.
+
 ## Features Implemented
 
 ### ✅ Core Infrastructure
