@@ -26,7 +26,7 @@ class SipCredentials extends Component
             'sipWsUrl' => [
                 'required',
                 'url',
-                'regex:/^wss:\/\/[a-zA-Z0-9\-\.]+:[0-9]{1,5}(\/.*)?$/',
+                'regex:/^wss?:\/\/.+$/',
             ],
             'sipUsername' => 'required|string|max:255',
             'sipPassword' => 'required|string|min:6|max:255',
@@ -37,7 +37,7 @@ class SipCredentials extends Component
     }
 
     protected $messages = [
-        'sipWsUrl.regex' => 'The SIP WebSocket URL must be in format: wss://domain:port',
+        'sipWsUrl.regex' => 'The SIP WebSocket URL must start with ws:// or wss:// (e.g., wss://domain:port/ws or wss://domain/path)',
         'sipPassword.min' => 'The SIP password must be at least 6 characters.',
         'sipDomain.regex' => 'The SIP domain must be a valid domain name.',
     ];
