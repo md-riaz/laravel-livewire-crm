@@ -138,17 +138,23 @@ export class PipController {
     }
 
     startCanvasRendering() {
+        // Render at 1 FPS to match stream capture rate
+        const renderInterval = 1000; // 1 second
+        
         const render = () => {
             this.drawCallUI();
-            this.animationFrameId = requestAnimationFrame(render);
         };
         
+        // Initial render
         render();
+        
+        // Set interval for subsequent renders at 1 FPS
+        this.animationFrameId = setInterval(render, renderInterval);
     }
 
     stopCanvasRendering() {
         if (this.animationFrameId) {
-            cancelAnimationFrame(this.animationFrameId);
+            clearInterval(this.animationFrameId);
             this.animationFrameId = null;
         }
     }
