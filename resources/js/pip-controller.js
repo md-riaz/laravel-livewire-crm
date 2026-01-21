@@ -95,8 +95,8 @@ export class PipController {
         // Start canvas rendering
         this.startCanvasRendering();
 
-        // Capture canvas as video stream
-        this.stream = this.canvas.captureStream(30);
+        // Capture canvas as video stream at 1 FPS (sufficient for timer updates)
+        this.stream = this.canvas.captureStream(1);
         this.videoElement.srcObject = this.stream;
 
         try {
@@ -106,11 +106,6 @@ export class PipController {
             // Request Picture-in-Picture
             if (document.pictureInPictureEnabled) {
                 this.pipWindow = await this.videoElement.requestPictureInPicture();
-                
-                // Listen for PiP window close
-                this.pipWindow.addEventListener('resize', () => {
-                    // Handle resize if needed
-                });
 
                 this.videoElement.addEventListener('leavepictureinpicture', () => {
                     this.handlePipClosed();

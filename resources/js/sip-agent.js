@@ -411,11 +411,11 @@ export class SipAgent {
                 },
                 mute: () => {
                     console.log('Mute from Media Session');
-                    this.livewire.dispatch('toggleMute', { muted: true });
+                    this.toggleMute(true);
                 },
                 unmute: () => {
                     console.log('Unmute from Media Session');
-                    this.livewire.dispatch('toggleMute', { muted: false });
+                    this.toggleMute(false);
                 }
             };
 
