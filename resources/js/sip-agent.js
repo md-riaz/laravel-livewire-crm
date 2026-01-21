@@ -1,4 +1,5 @@
 import { UserAgent, Registerer, Inviter, SessionState } from 'sip.js';
+import { PipController } from './pip-controller.js';
 
 export class SipAgent {
     constructor(config, livewireComponent) {
@@ -12,9 +13,19 @@ export class SipAgent {
         this.broadcastChannel = null;
         this.audioElement = null;
         this.localStream = null;
+        this.pipController = null;
         
         this.initializeBroadcastChannel();
         this.initializeAudio();
+        this.initializePip();
+    }
+
+    initializePip() {
+        try {
+            this.pipController = new PipController();
+        } catch (error) {
+            console.error('Failed to initialize PiP controller:', error);
+        }
     }
 
     initializeBroadcastChannel() {
@@ -257,6 +268,11 @@ export class SipAgent {
                     }
                 });
             }
+
+            // Update PiP controller
+            if (this.pipController) {
+                this.pipController.setMuted(muted);
+            }
         } catch (error) {
             console.error('Toggle mute failed:', error);
         }
@@ -362,6 +378,51 @@ export class SipAgent {
                 console.error('Audio play failed:', error);
             });
         }
+
+        // Start Picture-in-Picture with call info
+        this.startPictureInPicture();
+    }
+
+    async startPictureInPicture() {
+        if (!this.pipController || !this.session) {
+            return;
+        }
+
+        try {
+            // Determine phone number based on direction
+            let phoneNumber;
+            const remoteUser = this.session.remoteIdentity?.uri?.user || 'Unknown';
+            
+            // Get direction from the session
+            const isInbound = !(this.session instanceof Inviter);
+            const direction = isInbound ? 'inbound' : 'outbound';
+            
+            phoneNumber = remoteUser;
+
+            const callData = {
+                phoneNumber,
+                direction
+            };
+
+            const actionHandlers = {
+                hangup: () => {
+                    console.log('Hangup from Media Session');
+                    this.hangup();
+                },
+                mute: () => {
+                    console.log('Mute from Media Session');
+                    this.toggleMute(true);
+                },
+                unmute: () => {
+                    console.log('Unmute from Media Session');
+                    this.toggleMute(false);
+                }
+            };
+
+            await this.pipController.startPip(callData, actionHandlers);
+        } catch (error) {
+            console.error('Failed to start Picture-in-Picture:', error);
+        }
     }
 
     handleSessionTerminated() {
@@ -390,6 +451,11 @@ export class SipAgent {
         if (this.localStream) {
             this.localStream.getTracks().forEach(track => track.stop());
             this.localStream = null;
+        }
+
+        // Stop Picture-in-Picture
+        if (this.pipController) {
+            this.pipController.stopPip();
         }
 
         this.session = null;
@@ -464,6 +530,11 @@ export class SipAgent {
         if (this.localStream) {
             this.localStream.getTracks().forEach(track => track.stop());
             this.localStream = null;
+        }
+
+        if (this.pipController) {
+            this.pipController.destroy();
+            this.pipController = null;
         }
     }
 }
